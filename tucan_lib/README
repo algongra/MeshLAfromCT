@@ -1,0 +1,76 @@
+
+
+This directory contains Matlab packages, classes and functions
+ to pre-post process projects for the code IBcode.
+
+
+ Classes
+ -------
+
+ + Frame: Class to ease calculations with frames.
+ + Slab: Class to handle a reduced domain of frames.
+
+ Packages
+ --------
+
+ + geometry: Generate geometries to be used as input for the code.
+ + hypre: Handle Matrices written to disk by HYPRE.
+ + io: I/O functions to read the output of the code.
+ + misc: Miscellaneous functions that are used by the rest of the 
+         packages/classes/functions.
+ + myplot: Customized plot functions.
+ + mysignal: Signal processing.
+ + mytab: Tables handling to generate latex tables with tabular data.
+
+
+ -----------------------------------------------------------------------
+
+ Some examples:
+ 
+
+  % To generate a circle of Diameter D=1.0 to used in a simulation where the 
+  %  mesh width is dx=0.02:
+
+  D = 1.;
+  dx = 0.02;
+  [xy ds vol] = geometry.circle.circle(D, dx);
+
+  % To save the data in file readable by the code:
+  
+  fnm = 'circle_1.dat';
+  geometry.grid2file(xy, vol, fnm);
+
+  % To read the output of a simulation with basenm='cylinder_pair_1'
+
+  basenm = 'cylinder_pair_1';
+  path = 'my/path/to/data';
+  fr = Frame2D(basenm, 'path', path);
+
+  % To plot the pressure contours
+
+  fig = fr.contourplot('p');
+  figure(fig);   % hidden by default
+
+  % To plot the vorticity contours adjusting max and min values to plot
+
+  fig = fr.contourplot('w','vmin',-5,'vmax',5);
+  figure(fig);
+
+  % To read the Reynolds number, the mesh width, the number of points, the time
+  %  and the regularized delta scope 
+
+  fr.readfields('items', {'Re','dx','dy','nx','ny','time','deltascope'});
+
+  % To use any of these fields
+
+  ntotal = fr.nx * fr.ny;
+
+  % To collocate the velocities at the pressure points and do a quiver plot
+
+  fr.collocate();
+  quiver(fr.xcoll, fr.ycoll, fr.uxcoll', fr.uycoll'); axis equal
+ 
+  st = Stats(basenm, 'path', path, 'raw', true);
+
+  st.reafieldsh5('items',{'fxsum','fysum'})
+  plot(st.time, st.fxsum)

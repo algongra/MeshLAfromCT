@@ -1,0 +1,4 @@
+
+
+package that generates equispaced Lagrangian mesh 
+ from curve given piecewise numerically.
