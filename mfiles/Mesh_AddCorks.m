@@ -8,7 +8,7 @@ function mesh = Mesh_AddCorks(mesh,corklen,d_plane,varargin)
 % d_plane: distance between each additional plane
 
 %% Inlcude paths of external libraries
-addpath('../tucan3v6_mfiles');
+addpath('../tucan_lib');
 
 %% Assign varargin or default values
 % Set flag to specify if it is a moving mesh (ifmov=1) or a static one (ifmov=0)

@@ -3,7 +3,7 @@ function [mesh,ib_mesh] = tri2ibpts2(mesh,varargin)
 % surfaces one normal direction is obtained with a best fit plane
 
 %% Inlcude paths of external libraries
-addpath('../tucan3v6_mfiles');
+addpath('../tucan_lib');
 
 %% Assign varargin or default values
 % Set flag to specify if it is a moving mesh (ifmov=1) or a static one (ifmov=0)

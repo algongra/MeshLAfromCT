@@ -4,7 +4,7 @@ dbstop if error
 
 %%%%% paths for additional routines
 % CFD Solver matlab API
-addpath('../tucan3v6_mfiles');
+addpath('../tucan_lib');
 % Meshing tools
 addpath('../iso2mesh');
 % Load NIfTI images 
