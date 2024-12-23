@@ -108,7 +108,7 @@ function seg2QmitFile_fun(seg_path,seg_ext,seg_tags,T,nmodes,out_path,caseid,var
 % Load library to read NIfTI images
 addpath('../NIfTI_load');
 % Load IBcode Matlab library (to use misc.assigndefaults function)
-addpath('~/IBcode/lib/mfiles');
+addpath('../tucan_lib');
 
 
 % defaults
