@@ -55,7 +55,8 @@ end % see below
 xx = []; % No sampling (we will use fnval later)
 
 % allocate memory
-pp.coefs = zeros(nelem,ndim,nt+1,4);
+%pp.coefs = zeros(nelem,ndim,nt+1,4);
+pp.coefs = zeros(nelem,ndim,length(time)-1,4);
 pts = double(pts);
 
 disp('Generating splines...')
@@ -70,13 +71,15 @@ for e = 1:nelem
             w = max(weights .* squeeze(abs(pts(e,dim,:) - mean(pts(e,dim,:),'all')))', 1e-10); % avoid zeros
         end
         spln = csaps(time,pts(e,dim,:),p,xx);
-        pp.coefs(e,dim,:,:) = spln.coefs(1+n_tsteps_rep:1+n_tsteps_rep+nt,:);
+        %pp.coefs(e,dim,:,:) = spln.coefs(1+n_tsteps_rep:1+n_tsteps_rep+nt,:);
+        pp.coefs(e,dim,:,:) = spln.coefs;
     end
 end
 tgenspln = toc;
 disp(sprintf('elapsed time: %g',tgenspln));
 
-pp.breaks = spln.breaks(1+n_tsteps_rep:1+n_tsteps_rep+nt+1);
+%pp.breaks = spln.breaks(1+n_tsteps_rep:1+n_tsteps_rep+nt+1);
+pp.breaks = spln.breaks;
 pp.dim = spln.dim;
 pp.form = spln.form;
 pp.order = spln.order;

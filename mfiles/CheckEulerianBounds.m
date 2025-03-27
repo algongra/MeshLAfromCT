@@ -1,5 +1,14 @@
 function [x0 y0 z0 xf yf zf nx ny nz] = CheckEulerianBounds(x0,y0,z0,xf,yf,zf,nx,ny,nz,mesh,ib_mesh,dh)
 
+% nvalid expected for different resolutions
+%
+% lowres  (first  column)
+% nomres  (second column)
+% highres (third  column)
+nvalid = [144 150 160 162 168 180 192 196 200 210 216 224 240 250 252 ...
+          256 270 280 288 294 300 320 324 350 360 378 ...
+	  384 392 400 420 432 448 450 480 486 490 500 504 512];
+
 % ACHTUNG!!!
 % This function assumes that the last edge is the MV
 iMV = mesh.n_edges;
@@ -132,6 +141,95 @@ if min(xibMVmin) < x0 | max(xibMVmax) > xf |...
       disp(sprintf('z0: %g, zf: %g, nz: %i',z0,zf,nz));
    end
 end
+
+
+% Check if length of interior points of coordinate arrays (nx, ny, and nz) is 
+% compatible with spectral solver:
+%  - ftt requires coordinate arrays to have a length with at least one factor
+%    equal to two.
+%  - fft works better when coordinates arrays have a length that is power of 2
+%    (default is nx=ny=nz=[144|256} for [low|nom] resolution).
+%    It accepts 3, 5, or 7 as factors before stop working, but there is a
+%    penalty in speed up.
+% Thus, when bounds have grown with respect to the default values, they must be
+% expand to fulfill these requirements (and length has to be even to ensure 2 is
+% alwawys included)
+%
+% Find values greater than or equal to nx, ny, and nz in nvalid
+nx_gr = nvalid(nvalid > nx);
+ny_gr = nvalid(nvalid > ny);
+nz_gr = nvalid(nvalid > nz);
+%
+% nx
+if ~ismember(nx,nvalid)
+   if isempty(nx_gr)
+       error('No value in nvalid is greater than or equal to the nx');
+   else
+       disp(sprintf('\nWarning: nx factors are > 7: Spectral solver issue'));
+       disp(sprintf('Eulerian bounds in x direction are going to be updated to:'));
+       nx_add = min(nx_gr) - nx;
+       if abs(x0) > abs(xf)
+          % Update x0
+          nx_add_left = ceil(nx_add/2); x0 = x0 - nx_add_left*dh;
+          % Update xf
+          nx_add_right = floor(nx_add/2); xf = xf + nx_add_right*dh;
+       else
+          % Update x0
+          nx_add_left = floor(nx_add/2); x0 = x0 - nx_add_left*dh;
+          % Update xf
+          nx_add_right = ceil(nx_add/2); xf = xf + nx_add_right*dh;
+       end
+       nx = nx + nx_add;
+       disp(sprintf('x0: %g, xf: %g, nx: %i',x0,xf,nx));
+   end
+end
+% ny
+if ~ismember(ny,nvalid)
+   if isempty(ny_gr)
+       error('No value in nvalid is greater than or equal to the ny');
+   else
+       disp(sprintf('\nWarning: ny factors are > 7: Spectral solver issue'));
+       disp(sprintf('Eulerian bounds in y direction are going to be updated to:'));
+       ny_add = min(ny_gr) - ny;
+       if abs(y0) > abs(yf)
+          % Update y0
+          ny_add_left = ceil(ny_add/2); y0 = y0 - ny_add_left*dh;
+          % Update yf
+          ny_add_right = floor(ny_add/2); yf = yf + ny_add_right*dh;
+       else
+          % Update y0
+          ny_add_left = floor(ny_add/2); y0 = y0 - ny_add_left*dh;
+          % Update yf
+          ny_add_right = ceil(ny_add/2); yf = yf + ny_add_right*dh;
+       end
+       ny = ny + ny_add;
+       disp(sprintf('y0: %g, yf: %g, ny: %i',y0,yf,ny));
+   end
+end
+% nz
+if ~ismember(nz,nvalid)
+   if isempty(nz_gr)
+       error('No value in nvalid is greater than or equal to the nz');
+   else
+       disp(sprintf('\nWarning: nz factors are > 7: Spectral solver issue'));
+       disp(sprintf('Eulerian bounds in y direction are going to be updated to:'));
+       nz_add = min(nz_gr) - nz;
+       if abs(y0) > abs(yf)
+          % Update y0
+          nz_add_left = ceil(nz_add/2); y0 = y0 - nz_add_left*dh;
+          % Update yf
+          nz_add_right = floor(nz_add/2); yf = yf + nz_add_right*dh;
+       else
+          % Update y0
+          nz_add_left = floor(nz_add/2); y0 = y0 - nz_add_left*dh;
+          % Update yf
+          nz_add_right = ceil(nz_add/2); yf = yf + nz_add_right*dh;
+       end
+       nz = nz + nz_add;
+       disp(sprintf('y0: %g, yf: %g, nz: %i',y0,yf,nz));
+   end
+end
+
 
 return
 
