@@ -211,6 +211,9 @@ else
    data = CT_GetSmoothSegWithLevSet(seg_path,nt_seg,seg_ext,tags,...
                                     smoothing_stencil,filter_type);
 
+   % Write file with smoothed segmentation
+   WriteSmoothedNifti(seg_path,seg_ext,data,folder_debug);
+
    % Save data for restart
    vars_to_save = {'caseid','seg_ext','seg_time','dt_spln','base_path',...
                    'seg_path','res','tags','T','nvein','res','nx','ny','nz',...
@@ -556,6 +559,7 @@ movefile([folder_debug 'LAmesh_full_prefix*.vtu'],...
          [folder_out 'debug/SmoothFourier2/']);
 movefile([folder_debug 'data_levset.mat'],[folder_out 'debug/']);
 movefile([folder_debug 'temp_*.mat'],[folder_out 'debug/']);
+movefile([folder_debug '*.nii.gz'],[folder_out 'debug/']);
 
 % Save whole workspace
 save([folder_out 'full_preproc.mat'],'-v7.3');
