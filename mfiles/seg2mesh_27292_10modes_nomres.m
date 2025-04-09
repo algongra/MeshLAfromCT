@@ -27,22 +27,22 @@ seg_time = [18 26 34 43 51 59 67 75 84 93]/100;
 dt_spln = 0.025;
 
 % Base folder where output folders will be created
+%{
 % Klone
 base_path = '/gscratch/mambrino/algongra/Projects/Hearts/ct_processing_la/';
-%{
+%}
 % TheGreat
 base_path = '/Users/alex/Projects/Hearts/ct_processing_la_Klone/';
-%}
 
 % Folder containing the seg.nii.gz files with the segmentation
 % Klone
+%{
 seg_path = ['/gscratch/mambrino/algongra/Projects/Hearts/Bolus/'...
             'CT_scans_data/' caseid '/Cine_data/seg-nii/'];
-%{
+%}
 % TheGreat
 seg_path = ['/Users/alex/Projects/Hearts/Bolus/'...
             'CT_scans_data/' caseid '/Cine_data/seg-nii/'];
-%}
 %{
 seg_path = ['/Volumes/data28/alex/Projects/Hearts/Bolus/'...
             'CT_scans_data/' caseid '/Cine_data/seg-nii/'];
@@ -150,9 +150,9 @@ folder_debug = sprintf('%s/%s_%s_%g_debug/',base_path,casename,resnm,...
 %  - reload_registration_path: After CPD registration is performed
 %  - reload_corks_path:        After pulmonary veins corks are created
 reload_volume_path = sprintf('%s/data_levset.mat',folder_debug);
-reload_mesh_path = sprintf('%s/temp_mesh.mat',folder_debug);
-reload_registration_path = sprintf('%s/temp_registration.mat',folder_debug);
-reload_corks_path = sprintf('%s/temp_corks.mat',folder_debug);
+%reload_mesh_path = sprintf('%s/temp_mesh.mat',folder_debug);
+%reload_registration_path = sprintf('%s/temp_registration.mat',folder_debug);
+%reload_corks_path = sprintf('%s/temp_corks.mat',folder_debug);
 
 % Flag to include double LA wall (two layers of points on the LA separated
 % a distance dh in the normal direction)

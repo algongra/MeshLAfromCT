@@ -24,7 +24,7 @@ nii.hdr.hist.srow_z(4) = data.dz;
 % Modify machine field
 nii.machine = 'Smoothed_Segmentation_By_MeshLAfromCT';
 % Copy image from smoothed data
-nii.img = data.img;
+nii.img = single(flip(data.img,1));
 % Define filename of smoothed segmentation
 filename = fullfile(folder_debug,'smoothed_segmentation.nii.gz');
 
