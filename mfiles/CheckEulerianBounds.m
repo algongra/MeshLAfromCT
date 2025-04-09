@@ -214,19 +214,19 @@ if ~ismember(nz,nvalid)
        disp(sprintf('\nWarning: nz factors are > 7: Spectral solver issue'));
        disp(sprintf('Eulerian bounds in y direction are going to be updated to:'));
        nz_add = min(nz_gr) - nz;
-       if abs(y0) > abs(yf)
-          % Update y0
-          nz_add_left = ceil(nz_add/2); y0 = y0 - nz_add_left*dh;
+       if abs(z0) > abs(zf)
+          % Update z0
+          nz_add_left = ceil(nz_add/2); z0 = z0 - nz_add_left*dh;
           % Update yf
-          nz_add_right = floor(nz_add/2); yf = yf + nz_add_right*dh;
+          nz_add_right = floor(nz_add/2); zf = zf + nz_add_right*dh;
        else
-          % Update y0
-          nz_add_left = floor(nz_add/2); y0 = y0 - nz_add_left*dh;
+          % Update z0
+          nz_add_left = floor(nz_add/2); z0 = z0 - nz_add_left*dh;
           % Update yf
-          nz_add_right = ceil(nz_add/2); yf = yf + nz_add_right*dh;
+          nz_add_right = ceil(nz_add/2); zf = zf + nz_add_right*dh;
        end
        nz = nz + nz_add;
-       disp(sprintf('y0: %g, yf: %g, nz: %i',y0,yf,nz));
+       disp(sprintf('z0: %g, zf: %g, nz: %i',z0,zf,nz));
    end
 end
 

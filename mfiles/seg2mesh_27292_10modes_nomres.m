@@ -149,7 +149,7 @@ folder_debug = sprintf('%s/%s_%s_%g_debug/',base_path,casename,resnm,...
 %  - reload_mesh_path:         After meshing is performed
 %  - reload_registration_path: After CPD registration is performed
 %  - reload_corks_path:        After pulmonary veins corks are created
-reload_volume_path = sprintf('%s/data_levset.mat',folder_debug);
+%reload_volume_path = sprintf('%s/data_levset.mat',folder_debug);
 %reload_mesh_path = sprintf('%s/temp_mesh.mat',folder_debug);
 %reload_registration_path = sprintf('%s/temp_registration.mat',folder_debug);
 %reload_corks_path = sprintf('%s/temp_corks.mat',folder_debug);
@@ -431,7 +431,7 @@ end
 
 % Save data to setup automatic generation of TUCAN tags and launchers
 keys = {'caseid','nmodes','resnm','nvein','res','Lc',...
-       'x0','xf','y0','yf','z0','zf','dt_spln'};
+        'x0','xf','y0','yf','z0','zf','dt_spln'};
 values = {caseid, nmodes, resnm, nvein, res, Lc,x0,xf,y0,yf,z0,zf,dt_spln};
 create_input_file_for_tag_and_launcher_automatic_generation(folder_out,keys,values);
 
