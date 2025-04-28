@@ -139,8 +139,7 @@ folder_out = sprintf('%s/%s_%s_%g_%s/',base_path,casename,resnm,...
                      mesh_keepratio,datestr(datetime('now'),'yyyymmdd_HHMM'));
 
 % Folder to save debug files
-folder_debug = sprintf('%s/%s_%s_%g_debug/',base_path,casename,resnm,...
-                       mesh_keepratio);
+folder_debug = sprintf('%s/%s_%s_debug/',base_path,casename,resnm);
 
 % ---- Restart files
 
