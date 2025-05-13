@@ -1,4 +1,4 @@
-# Wellcome to MeshLAfromCT
+# Welcome to MeshLAfromCT
 
 A library to automatically generate computational grids compatible with TUCAN from CT segmentations of left atria anatomies
 
